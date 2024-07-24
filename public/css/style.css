@@ -1,0 +1,19 @@
+.box{
+    width: 3.5rem;
+}
+
+.box-1{
+    transition: width .3s;
+}
+
+.show_menu{
+    transition: height .3s;
+}
+
+.icon_arrow {
+    transition: all .3s;
+}
+
+.arrow .icon_arrow{
+    transform: rotate(90deg);
+}
