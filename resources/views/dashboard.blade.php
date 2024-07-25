@@ -5,5 +5,6 @@
         </h2>
     </x-slot>
 
+    welcome to dashboard
    
 </x-app-layout>

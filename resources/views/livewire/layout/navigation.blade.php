@@ -7,13 +7,14 @@ new class extends Component
 {
     /**
      * Log the current user out of the application.
-     */
+    **/
     public function logout(Logout $logout): void
     {
         $logout();
 
         $this->redirect('/', navigate: true);
     }
+   
 }; ?>
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
@@ -100,8 +101,9 @@ new class extends Component
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
+                    {{ __('Log Out') }}
                     <x-responsive-nav-link>
-                        {{ __('Log Out') }}
+                       
                     </x-responsive-nav-link>
                 </button>
             </div>

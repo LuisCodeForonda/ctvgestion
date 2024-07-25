@@ -4,7 +4,6 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\NoticiaController;
-use App\Http\Controllers\NoticiasController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
@@ -12,14 +11,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
+Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 Route::get('/marca', [MarcaController::class, 'index'])->middleware(['auth'])->name('marca.index');
 Route::get('/marca/pdf', [MarcaController::class, 'pdf'])->middleware(['auth'])->name('marca.pdf');
 Route::get('/persona', [PersonaController::class, 'index'])->middleware(['auth'])->name('persona.index');

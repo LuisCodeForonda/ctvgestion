@@ -37,7 +37,7 @@
 
                 {{-- logo --}}
                 <div class="text-center">
-                    <a href="" class="block text-nowrap py-4 px-1">
+                    <a href="dashboard" wire:navigate class="block text-nowrap py-4 px-1">
                         <img src="{{ asset('images/ctvmosca.png') }}" alt=""
                             class="h-10 w-12 inline-block mr-2">
                         <h1 class="inline-block align-middle text-4xl font-bold">CTV</h1>
@@ -103,15 +103,6 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="/marca" wire:navigate>
-                            <div
-                                class="py-2 flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
-                                <img src="{{ asset('icons/user.svg') }}" alt="" class="px-4 mr-1">
-                                <span>Usuarios</span>
-                            </div>
-                        </a>
                     </li>
                     <li class="overflow-hidden">
                         <button
