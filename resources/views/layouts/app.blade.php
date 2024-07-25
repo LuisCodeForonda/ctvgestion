@@ -105,15 +105,6 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="" wire:navigate>
-                            <div
-                                class="py-2 flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
-                                <img src="{{ asset('icons/news.svg') }}" alt="" class="px-4 mr-1">
-                                <span>Noticias</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/marca" wire:navigate>
                             <div
                                 class="py-2 flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
@@ -125,29 +116,24 @@
                     <li class="overflow-hidden">
                         <button
                             class="list-button py-2 w-full flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
-                            <img src="{{ asset('icons/chip.svg') }}" alt="" class="px-4 mr-1">
-                            <span class="grow text-left">Tecnica</span>
+                            <img src="{{ asset('icons/news.svg') }}" alt="" class="px-4 mr-1">
+                            <span class="grow text-left">Noticias</span>
                             <img src="{{ asset('icons/arrow-down.svg') }}" alt="" class="px-4 icon_arrow">
                         </button>
                         <ul class="h-0 pl-10 show_menu">
                             <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
+                                <a href="/categoria" wire:navigate class="cursor-pointer ">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Usuarios</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Categorias</span>
                                 </a>
                             </li>
                             <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
+                                <a href="/noticia" wire:navigate class="cursor-pointer ">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Usuarios</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Post</span>
                                 </a>
                             </li>
-                            <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
-                                    <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Usuarios</span>
-                                </a>
-                            </li>
+                        
                         </ul>
                     </li>
                 </ul>

@@ -23,6 +23,17 @@ return new class extends Migration
             $table->foreignId('persona_id')->nullable()->constrained('personas')->cascadeOnUpdate()->nullOnDelete();
             $table->string('slug', 50)->unique();
             $table->timestamps();
+
+            /*
+             $table->string('titulo');
+            $table->string('slug');
+            $table->longText('body');
+            $table->string('image');
+            $table->foreignId('categoria_id')->nullable()->constrained('categorias')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+            
+            
+            */ 
         });
     }
 

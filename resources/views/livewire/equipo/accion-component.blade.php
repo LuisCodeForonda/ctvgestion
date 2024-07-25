@@ -138,7 +138,7 @@
                 </tbody>
             </table>
         @else
-            <p class="p-4">Vaya al parecer el equipo no tiene acciones</p>
+            <p class="p-4 text-center">Vaya al parecer el equipo no tiene acciones</p>
         @endif
     </div>
 </div>

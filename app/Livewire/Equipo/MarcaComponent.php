@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Equipo;
 
-use Livewire\Component;
 use App\Models\Marca;
+use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
 

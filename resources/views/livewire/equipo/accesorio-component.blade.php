@@ -1,7 +1,7 @@
 <div>
     {{-- Be like water. --}}
     <div class="m-2 p-4 rounded-md border shadow-md">
-        <h2 class="text-xl font-bold">Accesorios del equipo</h2>
+        
         @if ($isOpen)
             <x-modals :name="'Formulario Accesorio'">
                 <form wire:submit="store" class="p-4 md:p-5">
@@ -66,7 +66,8 @@
             </x-modal-confirm>
         @endif
 
-        <div class="flex justify-between items-center py-2">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold">Accesorios del equipo</h2>
             <button type="button" wire:click="openModal"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Nuevo</button>
         </div>
@@ -137,7 +138,7 @@
                 </tbody>
             </table>
         @else
-            <p class="text-center">Vaya al parecer el equipo no tiene accesorios</p>
+            <p class="text-center py-4">Vaya al parecer el equipo no tiene accesorios</p>
         @endif
     </div>
 </div>
