@@ -2,7 +2,7 @@
     {{-- The whole world belongs to you. --}}
 
     @if ($isOpen)
-        @include('equipo.equipo-form')
+        @include('forms.equipo-form')
     @endif
 
     @if ($showDeleteModal)

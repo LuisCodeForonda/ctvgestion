@@ -33,11 +33,11 @@
             @endif --}}
 
         <div class="flex flex-row">
-            <div class="box-1 bg-gray-900 text-white min-w-12 w-56 h-screen">
+            <div class="box-1 text-white bg-gray-900 min-w-12 w-56 h-screen">
 
                 {{-- logo --}}
                 <div class="text-center">
-                    <a href="dashboard" wire:navigate class="block text-nowrap py-4 px-1">
+                    <a href="/dashboard" wire:navigate class="block text-nowrap py-4 px-1">
                         <img src="{{ asset('images/ctvmosca.png') }}" alt=""
                             class="h-10 w-12 inline-block mr-2">
                         <h1 class="inline-block align-middle text-4xl font-bold">CTV</h1>
@@ -66,18 +66,12 @@
                     </li>
                     <li class="overflow-hidden">
                         <button
-                            class="list-button py-2 w-full flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
+                            class="list-button py-2 w-full flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('equipo.index') || request()->routeIs('marca.index') || request()->routeIs('persona.index') ? 'text-white bg-slate-300/30' : '' }}">
                             <img src="{{ asset('icons/chip.svg') }}" alt="" class="px-4 mr-1">
                             <span class="grow text-left">Equipos</span>
                             <img src="{{ asset('icons/arrow-down.svg') }}" alt="" class="px-4 icon_arrow">
                         </button>
                         <ul class="h-0 pl-10 show_menu">
-                            <li class="border-l-2">
-                                <a href="/marca" wire:navigate class="cursor-pointer">
-                                    <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('marca.index') ? 'text-white bg-slate-300/30' : '' }}">Marcas</span>
-                                </a>
-                            </li>
                             <li class="border-l-2">
                                 <a href="/equipo" wire:navigate class="cursor-pointer ">
                                     <span
@@ -85,15 +79,9 @@
                                 </a>
                             </li>
                             <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
+                                <a href="/marca" wire:navigate class="cursor-pointer">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Acciones</span>
-                                </a>
-                            </li>
-                            <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
-                                    <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Accesorios</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('marca.index') ? 'text-white bg-slate-300/30' : '' }}">Marcas</span>
                                 </a>
                             </li>
                             <li class="border-l-2">
@@ -106,7 +94,7 @@
                     </li>
                     <li class="overflow-hidden">
                         <button
-                            class="list-button py-2 w-full flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30">
+                            class="list-button py-2 w-full flex items-center text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('categoria.index') || request()->routeIs('noticia.index') ? 'text-white bg-slate-300/30' : '' }}">
                             <img src="{{ asset('icons/news.svg') }}" alt="" class="px-4 mr-1">
                             <span class="grow text-left">Noticias</span>
                             <img src="{{ asset('icons/arrow-down.svg') }}" alt="" class="px-4 icon_arrow">
@@ -115,13 +103,13 @@
                             <li class="border-l-2">
                                 <a href="/categoria" wire:navigate class="cursor-pointer ">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Categorias</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('categoria.index') ? 'text-white bg-slate-300/30' : '' }}">Categorias</span>
                                 </a>
                             </li>
                             <li class="border-l-2">
                                 <a href="/noticia" wire:navigate class="cursor-pointer ">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Post</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('noticia.index') ? 'text-white bg-slate-300/30' : '' }}">Post</span>
                                 </a>
                             </li>
                         
@@ -138,39 +126,7 @@
                     </div>
                     
                     <!-- Settings Dropdown -->
-                    <div class="hidden sm:flex sm:items-center sm:ms-6">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
-                                        x-on:profile-updated.window="name = $event.detail.name"></div>
-
-                                    <div class="ms-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('profile')" wire:navigate>
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
-
-                                <!-- Authentication -->
-                                <button wire:click="logout" class="w-full text-start">
-                                    <x-dropdown-link>
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </button>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
+                    @livewire('layout.dropdown')
                 </div>
 
                 <!-- Page Content -->

@@ -1,7 +1,7 @@
 <div class="p-4">
     {{-- The whole world belongs to you. --}}
     @if ($isOpen) 
-        @include('marca.marca-form')
+        @include('forms.marca-form')
     @endif
 
     @if ($showDeleteModal)

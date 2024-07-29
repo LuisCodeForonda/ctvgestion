@@ -2,7 +2,7 @@
     {{-- Do your work, then step back. --}}
     
     @if ($isOpen) 
-        @include('noticia.noticia-form')
+        @include('forms.noticia-form')
     @endif
 
     @if ($showDeleteModal)

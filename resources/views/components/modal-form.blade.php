@@ -1,4 +1,4 @@
-@props(['name'])
+@props(['name', 'id'])
 
 <div class="fixed top-0 left-0 w-full h-screen z-10 bg-gray-600/30 overflow-y-auto">
     <!-- Simplicity is the essence of happiness. - Cedric Bledsoe -->
@@ -16,6 +16,14 @@
             </button>
         </div>
         <!-- Modal body -->
-        {{ $slot }}
+        <form wire:submit="store" class="p-4 md:p-5">
+            {{ $slot }}
+            <div class="flex justify-end">
+                <x-primary-button>
+                    {{ __($id? 'Actualizar':'Guardar')}}
+                </x-primary-button>
+            </div>
+        </form>
+       
     </div>
 </div>

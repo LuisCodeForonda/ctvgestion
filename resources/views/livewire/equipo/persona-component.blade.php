@@ -2,7 +2,7 @@
     {{-- Stop trying to control. --}}
 
     @if ($isOpen) 
-        @include('persona.persona-form')
+        @include('forms.persona-form')
     @endif
 
     @if ($showDeleteModal)

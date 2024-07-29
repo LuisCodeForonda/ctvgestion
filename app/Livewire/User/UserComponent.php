@@ -44,13 +44,14 @@ class UserComponent extends Component
                 'password_confirmation' => ['required_with:password|same:password'],
             ]);
             
-            User::create([
+            $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'enabled' => $this->enabled,
                 'rol' => $this->rol,
             ]);
+            $user->syncRoles($this->rol);
         }else{
             //dump($this->enabled);
             $this->user->update([
@@ -59,8 +60,6 @@ class UserComponent extends Component
             
             $this->user->syncRoles($this->rol);
         }
-        
-        
 
         $this->closeModal();
     }
