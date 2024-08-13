@@ -2,7 +2,7 @@
     {{-- Do your work, then step back. --}}
     
     @if ($isOpen) 
-        @include('noticia.noticia-form')
+        @include('forms.noticia-form')
     @endif
 
     @if ($showDeleteModal)
@@ -50,6 +50,9 @@
                             Categoria
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Publicado
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Fecha
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -68,6 +71,9 @@
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $noticia->categoria->name }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $noticia->status }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ date('d-m-Y', strtotime($noticia->created_at)) }}

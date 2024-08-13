@@ -1,12 +1,13 @@
 <div class="p-4">
-    {{-- The whole world belongs to you. --}}
+    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+
     @if ($isOpen) 
-        @include('forms.marca-form')
+        @include('forms.encargado-form')
     @endif
 
     @if ($showDeleteModal)
         <x-modal-confirm>
-            {{ $marca->nombre }}
+            {{ $encargado->nombre }}
         </x-modal-confirm>
     @endif
 
@@ -30,9 +31,10 @@
                 <option value="100">100 regitros</option>
             </select>
              
-            <a href="{{ route('marca.pdf') }}" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generar PDF</a>
+            <a href="{{ route('persona.pdf') }}" class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generar PDF</a>
         </div>
     </div>
+
     <div class="">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -42,7 +44,13 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Fecha 
+                            Cargo
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Carnet
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Celular
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -50,17 +58,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($marcas as $marca)
-                    <tr wire:key="{{$marca->id}}" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    @foreach ($encargados as $encargado)
+                    <tr wire:key="{{$encargado->id}}" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $marca->nombre }}
+                            {{ $encargado->nombre }}
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ date('d-m-Y', strtotime($marca->created_at)) }}
+                            {{ $encargado->cargo }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $encargado->carnet }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $encargado->celular }}
                         </th>
                         <td class="px-6 py-4 flex gap-4">
-                            <button wire:click="edit({{$marca->id}})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">edit</button>
-                            <button wire:click="destroy({{$marca->id}})" class="font-medium text-red-600 dark:text-red-500 hover:underline">delete</button>
+                            <button wire:click="edit({{$encargado->id}})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">edit</button>
+                            <button wire:click="destroy({{$encargado->id}})" class="font-medium text-red-600 dark:text-red-500 hover:underline">delete</button>
                         </td>
                     </tr>
                     @endforeach
@@ -68,7 +82,7 @@
             </table>
         </div>
         <div class="p-2">
-            {{ $marcas->links() }}
+            {{ $encargados->links() }}
         </div>
     </div>
 </div>

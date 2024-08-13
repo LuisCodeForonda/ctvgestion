@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('noticias', function (Blueprint $table) {
+        Schema::create('reportes', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('slug');
-            $table->longText('body');
-            $table->string('image');
-            $table->boolean('status');
-            $table->foreignId('categoria_id')->nullable()->constrained('categorias')->cascadeOnUpdate()->nullOnDelete();
+            $table->string('descripcion', 30);
+            $table->foreignId('equipo_id')->nullable()->constrained('equipos')->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('noticias');
+        Schema::dropIfExists('reportes');
     }
 };

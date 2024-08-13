@@ -10,7 +10,7 @@ class Noticia extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'slug', 'body', 'image', 'categoria_id', 'user_id'];
+    protected $fillable = ['titulo', 'slug', 'body', 'image', 'status', 'categoria_id', 'user_id'];
 
 
     public function categoria(): BelongsTo

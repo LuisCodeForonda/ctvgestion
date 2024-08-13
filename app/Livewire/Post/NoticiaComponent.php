@@ -22,6 +22,7 @@ class NoticiaComponent extends Component
     public $slug;
     public $body;
     public $image;
+    public $status;
     public $categoria_id;
     public $user_id;
 
@@ -42,7 +43,7 @@ class NoticiaComponent extends Component
     public function closeModal()
     {
         $this->isOpen = false;
-        $this->reset('noticia_id', 'titulo', 'slug', 'body', 'image', 'categoria_id', 'user_id');
+        $this->reset('noticia_id', 'titulo', 'slug', 'body', 'image', 'status', 'categoria_id', 'user_id');
         $this->resetValidation();
     }
 
@@ -54,7 +55,7 @@ class NoticiaComponent extends Component
     public function closeConfimModal()
     {
         $this->showDeleteModal = false;
-        $this->reset('noticia_id', 'noticia', 'titulo', 'slug', 'body', 'image', 'categoria_id', 'user_id');
+        $this->reset('noticia_id', 'noticia', 'titulo', 'slug', 'body', 'image', 'status', 'categoria_id', 'user_id');
     }
 
     public function store()
@@ -77,6 +78,7 @@ class NoticiaComponent extends Component
                 'slug' => Str::slug($this->titulo),
                 'body' => $this->body,
                 'image' => $this->image,
+                'status' => $this->status,
                 'categoria_id' => $this->categoria_id,
                 'user_id' => Auth::user()->id,
             ]);
@@ -106,6 +108,7 @@ class NoticiaComponent extends Component
                 'body' => $this->body,
                 'fecha' => $this->fecha,
                 'image' => $this->image,
+                'status' => $this->status,
                 'categoria_id' => $this->categoria_id,
                 'user_id' => Auth::user()->id,
             ]);
@@ -127,9 +130,8 @@ class NoticiaComponent extends Component
         $this->slug = $noticia->slug;
         $this->body = $noticia->body;
         $this->oldImage = $noticia->image;
+        $this->status = $noticia->status;
         $this->categoria_id = $noticia->categoria_id;
-
-
         $this->openModal();
     }
 

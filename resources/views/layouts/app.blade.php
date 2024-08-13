@@ -85,15 +85,9 @@
                                 </a>
                             </li>
                             <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
+                                <a href="/encargado" wire:navigate class="cursor-pointer ">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Acciones</span>
-                                </a>
-                            </li>
-                            <li class="border-l-2">
-                                <a href="#" class="cursor-pointer ">
-                                    <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Accesorios</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('encargado.index') ? 'text-white bg-slate-300/30' : '' }}">Encargado</span>
                                 </a>
                             </li>
                             <li class="border-l-2">

@@ -1,7 +1,7 @@
 <div class="p-4">
     {{-- Because she competes with no one, no one can compete with her. --}}
     @if ($isOpen) 
-        @include('categoria.categoria-form')
+        @include('forms.categoria-form')
     @endif
 
     @if ($showDeleteModal)

@@ -17,16 +17,18 @@ class EquipoComponent extends Component
     //data
     public $equipo_id;
     public $descripcion;
-    public $marca_id;
+    public $observaciones;
     public $modelo;
     public $serie;
     public $serietec;
     public $estado;
-    public $observaciones;
-    public $persona_id;
+    public $area;
+    public $ubicacion;
+    public $marca_id;
+    public $encargado_id;
+    public $equipo;
 
     //variables
-    public $equipo = null;
     public $isOpen = false;
     public $paginate = 10;
     public $showDeleteModal = false;
@@ -38,7 +40,7 @@ class EquipoComponent extends Component
 
     public function closeModal(){
         $this->isOpen = false;
-        $this->reset('equipo_id', 'descripcion', 'marca_id', 'modelo', 'serie', 'serietec', 'estado', 'observaciones', 'persona_id');
+        $this->reset('descripcion', 'observaciones', 'modelo', 'serie', 'serietec', 'estado', 'area', 'ubicacion', 'marca_id', 'encargado_id');
         $this->resetValidation();
     }
 
@@ -48,55 +50,54 @@ class EquipoComponent extends Component
 
     public function closeConfimModal(){
         $this->showDeleteModal = false;
-        $this->reset('equipo', 'equipo_id', 'descripcion', 'marca_id', 'modelo', 'serie', 'serietec', 'estado', 'observaciones', 'persona_id');
+        $this->reset('descripcion', 'observaciones', 'modelo', 'serie', 'serietec', 'estado', 'area', 'ubicacion', 'marca_id', 'encargado_id', 'equipo');
     }
 
     public function store(){
+
+        $this->validate([
+            'descripcion' => 'required|min:3|max:400',
+            'observaciones' => 'max:150',
+            'modelo' => 'max:30',
+            'serie' => 'max:50',
+            'serietec' => 'required|max:50|unique:equipos',
+            'estado' => 'required|numeric|min:1|max:4',
+            'area' => '',
+            'ubicacion' => '',
+            'marca_id' => '',
+            'encargado_id' => '',
+        ]);
+
         if(!$this->equipo_id){
-            $this->validate([
-                'descripcion' => 'required|min:3|max:400',
-                'marca_id' => '',
-                'modelo' => 'max:30',
-                'serie' => 'max:50',
-                'serietec' => 'required|max:50|unique:equipos',
-                'estado' => 'required|numeric|min:1|max:4',
-                'observaciones' => 'max:150',
-                'persona_id' => '',
-            ]);
             Equipo::create([
                 'descripcion' => $this->descripcion,
-                'marca_id' => $this->marca_id,
+                'observaciones' => $this->observaciones,
                 'modelo' => $this->modelo,
                 'serie' => $this->serie,
-                'serietec' => $this->serietec,
+                'serietec' => Str::slug($this->serietec),
                 'estado' => $this->estado,
-                'observaciones' => $this->observaciones,
-                'persona_id' => $this->persona_id,
-                'slug' => Str::slug($this->serietec),
+                'area' => $this->area,
+                'ubicacion' => $this->ubicacion,
+                'marca_id' => $this->marca_id,
+                'encargado_id' => $this->encargado_id,
             ]);
         }else{
-            $this->validate([
-                'descripcion' => 'required|min:3|max:400',
-                'marca_id' =>'',
-                'modelo' => 'max:30',
-                'serie' => 'max:50',
-                'estado' => 'required|numeric|min:1|max:4',
-                'observaciones' => 'max:150',
-                'persona_id' => '',
-            ]);
             Equipo::updateOrCreate(['id' => $this->equipo_id], [
                 'descripcion' => $this->descripcion,
-                'marca_id' => $this->marca_id,
+                'observaciones' => $this->observaciones,
                 'modelo' => $this->modelo,
                 'serie' => $this->serie,
+                'serietec' => Str::slug($this->serietec),
                 'estado' => $this->estado,
-                'observaciones' => $this->observaciones,
-                'persona_id' => $this->persona_id,
+                'area' => $this->area,
+                'ubicacion' => $this->ubicacion,
+                'marca_id' => $this->marca_id,
+                'encargado_id' => $this->encargado_id,
             ]);
         }
 
         session()->flash('message',
-            $this->equipo_id ? 'Equipo Actualizado Exitosamente.' : 'Equipo Creado Exitosamente.');
+            $this->equipo_id ? 'Actualizado Exitosamente.' : 'Creado Exitosamente.');
 
         $this->closeModal();
     }
@@ -105,13 +106,15 @@ class EquipoComponent extends Component
         $equipo = Equipo::findOrFail($id);
         $this->equipo_id = $id;
         $this->descripcion = $equipo->descripcion;
-        $this->marca_id = $equipo->marca_id;
+        $this->observaciones = $equipo->observaciones;
         $this->modelo = $equipo->modelo;
         $this->serie = $equipo->serie;
         $this->serietec = $equipo->serietec;
         $this->estado = $equipo->estado;
-        $this->observaciones = $equipo->observaciones;
-        $this->persona_id = $equipo->persona_id;
+        $this->area = $equipo->area;
+        $this->ubicacion = $equipo->ubicacion;
+        $this->marca_id = $equipo->marca_id;
+        $this->encargado_id = $equipo->encargado_id;
         
         $this->openModal();
     }
@@ -124,7 +127,7 @@ class EquipoComponent extends Component
     public function confirmDestroy()
     {
         Equipo::find($this->equipo->id)->delete();
-        session()->flash('message', 'Equipo Eliminado Exitosamente.');
+        session()->flash('message', 'Eliminado Exitosamente.');
         $this->closeConfimModal();
     }
 
@@ -132,8 +135,8 @@ class EquipoComponent extends Component
     {
         if($this->search){
             $this->resetPage();
-            return view('livewire.equipo.equipo-component',  ['equipos' => Equipo::where('descripcion', 'LIKE', '%'.$this->search.'%')->paginate($this->paginate), 'marcas'=>Marca::all(), 'personas' => Persona::all()]);
+            return view('livewire.equipo.equipo-component',  ['equipos' => Equipo::where('descripcion', 'LIKE', '%'.$this->search.'%')->paginate($this->paginate), 'marcas'=>Marca::all(), 'encargados' => Persona::all()]);
         }
-        return view('livewire.equipo.equipo-component', ['equipos' => Equipo::latest()->paginate($this->paginate), 'marcas'=>Marca::all(), 'personas' => Persona::all()]);
+        return view('livewire.equipo.equipo-component', ['equipos' => Equipo::latest()->paginate($this->paginate), 'marcas'=>Marca::all(), 'encargados' => Persona::all()]);
     }
 }

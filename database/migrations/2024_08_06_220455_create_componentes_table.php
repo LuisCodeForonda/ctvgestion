@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipos', function (Blueprint $table) {
+        Schema::create('componentes', function (Blueprint $table) {
             $table->id();
-            $table->longText('descripcion', 400);
-            $table->string('observaciones', 200)->nullable();
+            $table->string('descripcion', 100);
+            $table->string('observaciones', 30)->nullable();
             $table->string('modelo', 30)->nullable();
             $table->string('serie', 30)->nullable();
-            $table->string('serietec', 30)->unique();
+            $table->integer('cantidad');
             $table->tinyInteger('estado');
-            $table->string('area', 30)->nullable();
-            $table->string('ubicacion', 50)->nullable();
-            $table->string('slug', 50)->unique();
-            $table->foreignId('encargado_id')->nullable()->constrained('encargados')->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('marca_id')->nullable()->constrained('marcas')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('equipo_id')->nullable()->constrained('equipos')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipos');
+        Schema::dropIfExists('componentes');
     }
 };

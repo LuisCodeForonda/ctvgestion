@@ -1,4 +1,4 @@
-<x-modals :name="('Formulario Categoria')">
+<x-modals :name="('Formulario Categoria')" width="xl">
     <form wire:submit="store" class="p-4 md:p-5">
         <div class="grid gap-4 mb-4">
             <div>

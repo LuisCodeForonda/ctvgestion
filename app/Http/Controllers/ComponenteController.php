@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PersonaController extends Controller
+class ComponenteController extends Controller
 {
+    //
     public function index(){
-        return view('equipo.persona');
+        return view('equipo.componente');
     }
 
     public function pdf(){

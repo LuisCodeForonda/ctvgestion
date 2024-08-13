@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Equipo;
 
+use App\Models\Accesorio;
+use App\Models\Accion;
 use App\Models\Equipo;
 use Livewire\Component;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -12,8 +14,6 @@ class ShowComponent extends Component
 {
     public $equipo;
     public $slug;
-    public $accesorios = 0;
-    public $acciones = 0;
 
     public function mount($equipo = null)
     {
@@ -23,6 +23,11 @@ class ShowComponent extends Component
     #[On('accion-created')] 
     public function render()
     {
-        return view('livewire.equipo.show-component', ['qrcode' => QrCode::size(256)->generate('https://admin.ctvbolivia.com/equipo/'.$this->equipo->slug)]);
+        return view('livewire.equipo.show-component', 
+        [
+            'qrcode' => QrCode::size(256)->generate('https://admin.ctvbolivia.com/equipo/'.$this->equipo->slug),
+            'accesorios' => Accesorio::where('equipo_id', '=', $this->equipo->id)->get()->count(),
+            'acciones' => Accion::where('equipo_id', $this->equipo->id)->get()->count(),
+        ]);
     }
 }

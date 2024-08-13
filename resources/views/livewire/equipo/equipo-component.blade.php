@@ -2,7 +2,7 @@
     {{-- The whole world belongs to you. --}}
 
     @if ($isOpen)
-        @include('equipo.equipo-form')
+        @include('forms.equipo-form')
     @endif
 
     @if ($showDeleteModal)
@@ -65,7 +65,7 @@
                         {{ $equipo->modelo }}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $equipo->marca->nombre }}
+                        {{ isset($equipo->marca->nombre) }}
                     </th>
                     <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
                         @if ($equipo->estado == 1)
@@ -90,11 +90,6 @@
                         <button wire:click="edit({{$equipo->id}})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</button>
                         @endcan
                         @can('equipo destroy')
-                        {{-- <form action="{{ route('equipo.destroy', $equipo->id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input type="submit" value="Eliminar" class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                        </form> --}}
                         <button wire:click="destroy({{$equipo->id}})" class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</button>
                         @endcan
                     </td>
