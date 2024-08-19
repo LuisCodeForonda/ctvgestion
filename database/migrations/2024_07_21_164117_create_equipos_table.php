@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('modelo', 30)->nullable();
             $table->string('serie', 30)->nullable();
             $table->string('serietec', 30)->unique();
-            $table->tinyInteger('estado');
+            $table->tinyInteger('estado')->default(1);
             $table->string('area', 30)->nullable();
             $table->string('ubicacion', 50)->nullable();
             $table->string('slug', 50)->unique();

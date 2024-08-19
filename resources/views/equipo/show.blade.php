@@ -8,8 +8,8 @@
    <div class="p-4 grid grid-cols-1 gap-2">
         @livewire('equipo.show-component', ['equipo' => $equipo])
         @livewire('equipo.archivo-component', ['equipo' => $equipo])
-        @livewire('equipo.componentes-component', ['equipo' => $equipo])
-        {{-- @livewire('equipo.accesorio-component', ['equipo' => $equipo])
+       {{-- @livewire('equipo.componentes-component', ['equipo' => $equipo])
+        @livewire('equipo.accesorio-component', ['equipo' => $equipo])
         @livewire('equipo.accion-component', ['equipo' => $equipo]) --}}
    </div>
 </x-app-layout>

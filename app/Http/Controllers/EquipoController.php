@@ -8,8 +8,17 @@ use Illuminate\Http\Request;
 class EquipoController extends Controller
 {
     //
+
     public function index(){
-        return view('equipo.equipo');
+        return view('equipo.equipo.index');
+    }
+
+    public function create(){
+        return view('equipo.equipo.create');
+    }
+
+    public function edit(Equipo $equipo){
+        return view('equipo.equipo.edit', compact('equipo'));
     }
 
     public function show($slug){

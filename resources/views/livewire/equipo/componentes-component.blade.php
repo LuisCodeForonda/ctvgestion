@@ -49,16 +49,16 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Nombre
+                            Descripcion
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Cargo
+                            Modelo
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Carnet
+                            Serie
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Celular
+                            Estado
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -75,15 +75,15 @@
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $componente->cargo }}
+                                {{ $componente->modelo }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $componente->carnet }}
+                                {{ $componente->serie }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $componente->celular }}
+                                {{ $componente->estado }}
                             </th>
                             <td class="px-6 py-4 flex gap-4">
                                 <button wire:click="edit({{ $componente->id }})"

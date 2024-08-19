@@ -32,7 +32,7 @@
 
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="py-10 flex flex-col gap-4">
-                    <img src="{{ asset('images/ctvmosca.png')}}" alt="" class="h-14 w-auto mx-auto">
+                    <img src="{{ asset('images/ctvmosca.png') }}" alt="" class="h-14 w-auto mx-auto">
                     <h1 class="text-center text-2xl text-white/90">Copacabana de television S.R.L.</h1>
                 </header>
 

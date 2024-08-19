@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     @livewireStyles
@@ -73,27 +73,29 @@
                         </button>
                         <ul class="h-0 pl-10 show_menu">
                             <li class="border-l-2">
-                                <a href="/marca" wire:navigate class="cursor-pointer">
+                                <a href="{{ route('marcas.index') }}" wire:navigate class="cursor-pointer">
                                     <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('marca.index') ? 'text-white bg-slate-300/30' : '' }}">Marcas</span>
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('marcas.index') ? 'text-white bg-slate-300/30' : '' }}">Marcas</span>
                                 </a>
                             </li>
                             <li class="border-l-2">
-                                <a href="/equipo" wire:navigate class="cursor-pointer ">
+                                <a href="{{ route('componentes.index') }}" wire:navigate class="cursor-pointer ">
+                                    <span
+                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('componente.index') ? 'text-white bg-slate-300/30' : '' }}">Componente</span>
+                                </a>
+                            </li>
+                            <li class="border-l-2">
+                                <a href="{{ route('equipos.index') }}" wire:navigate class="cursor-pointer ">
                                     <span
                                         class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('equipo.index') ? 'text-white bg-slate-300/30' : '' }}">Equipos</span>
                                 </a>
                             </li>
+                           
+                            
                             <li class="border-l-2">
-                                <a href="/encargado" wire:navigate class="cursor-pointer ">
+                                <a href="{{ route('encargados.index') }}" wire:navigate class="cursor-pointer ">
                                     <span
                                         class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('encargado.index') ? 'text-white bg-slate-300/30' : '' }}">Encargado</span>
-                                </a>
-                            </li>
-                            <li class="border-l-2">
-                                <a href="/persona" wire:navigate class="cursor-pointer ">
-                                    <span
-                                        class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('persona.index') ? 'text-white bg-slate-300/30' : '' }}">Personas</span>
                                 </a>
                             </li>
                         </ul>
@@ -168,13 +170,14 @@
                 </div>
 
                 <!-- Page Content -->
-                <main class="bg-white">
+                <main class="relative bg-white p-4">
                     {{ $slot }}
                 </main>
             </div>
         </div>
     </div>
     <script src="{{ asset('js/script.js') }}"></script>
+    
     @livewireScripts
 </body>
 

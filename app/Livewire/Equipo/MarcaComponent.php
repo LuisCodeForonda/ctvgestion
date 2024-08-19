@@ -21,48 +21,62 @@ class MarcaComponent extends Component
     public $showDeleteModal = false;
     public $search = '';
 
-    public function openModal(){
+    //ordenar
+    public $sortBy = 'created_at';
+    public $sortDir = 'DESC';
+
+
+    public function openModal()
+    {
         $this->isOpen = true;
     }
 
-    public function closeModal(){
+    public function closeModal()
+    {
         $this->isOpen = false;
         $this->reset('nombre', 'marca_id');
         $this->resetValidation();
     }
 
-    public function openConfirmModal(){
+    public function openConfirmModal()
+    {
         $this->showDeleteModal = true;
     }
 
-    public function closeConfimModal(){
+    public function closeConfimModal()
+    {
         $this->showDeleteModal = false;
         $this->reset('marca', 'nombre', 'marca_id');
     }
 
-    public function store(){ 
-    
+    public function store()
+    {
+
         $this->validate();
 
         Marca::updateOrCreate(['id' => $this->marca_id], [
             'nombre' => $this->nombre,
         ]);
 
-        session()->flash('message',
-            $this->marca_id ? 'Marca Actualizada Exitosamente.' : 'Marca Creado Exitosamente.');
+        session()->flash(
+            'message',
+            $this->marca_id ? 'Marca Actualizada Exitosamente.' : 'Marca Creado Exitosamente.'
+        );
 
         $this->closeModal();
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $marca = Marca::findOrFail($id);
         $this->marca_id = $id;
         $this->nombre = $marca->nombre;
-        
+
         $this->openModal();
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $this->marca = Marca::findOrFail($id);
         $this->openConfirmModal();
     }
@@ -74,12 +88,22 @@ class MarcaComponent extends Component
         $this->closeConfimModal();
     }
 
+    public function setSortBy($sort)
+    {
+        if ($this->sortBy === $sort) {
+            $this->sortDir = $this->sortDir == 'ASC' ? 'DESC' : 'ASC';
+            return;
+        }
+        $this->sortBy = $sort;
+        $this->sortDir = 'DESC';
+    }
+
     public function render()
     {
-        if($this->search){
+        if ($this->search) {
             $this->resetPage();
-            return view('livewire.equipo.marca-component',  ['marcas' => Marca::where('nombre', 'LIKE', '%'.$this->search.'%')->paginate($this->paginate)]);
         }
-        return view('livewire.equipo.marca-component', ['marcas' => Marca::latest()->paginate($this->paginate)]);
+        return view('livewire.equipo.marca-component',  ['marcas' => Marca::where('nombre', 'LIKE', '%' . $this->search . '%')->orderBy($this->sortBy, $this->sortDir)
+            ->paginate($this->paginate)]);
     }
 }

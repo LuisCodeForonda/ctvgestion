@@ -9,10 +9,6 @@ use Livewire\Component;
 
 class ComponentesComponent extends Component
 {
-
-    //variable del equipo
-    public $equipo;
-
     //variables del modelo
     public $componente_id;
     public $descripcion;
@@ -69,8 +65,6 @@ class ComponentesComponent extends Component
             'equipo_id' => '',
         ]);
 
-
-
         Componente::updateOrCreate(['id' => $this->componente_id], [
             'descripcion' => $this->descripcion,
             'observaciones' => $this->observaciones,
@@ -79,7 +73,7 @@ class ComponentesComponent extends Component
             'cantidad' => $this->cantidad,
             'estado' => $this->estado,
             'marca_id' => $this->marca_id,
-            'equipo_id' => $this->equipo->id,
+            'equipo_id' => $this->equipo_id,
         ]);
 
 
@@ -123,6 +117,6 @@ class ComponentesComponent extends Component
 
     public function render()
     {
-        return view('livewire.equipo.componentes-component', ['componentes' => Componente::where('equipo_id', $this->equipo->id)->latest()->paginate($this->paginate), 'equipos' => Equipo::all(), 'marcas' => Marca::all()]);
+        return view('livewire.equipo.componentes-component', ['componentes' => Componente::latest()->paginate($this->paginate), 'equipos' => Equipo::all(), 'marcas' => Marca::all()]);
     }
 }
