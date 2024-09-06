@@ -3,6 +3,7 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 use App\Models\Componente;
+use App\Models\Marca;
 use Illuminate\Support\Str;
 
 new #[Layout('layouts.app')] class extends Component {
@@ -49,6 +50,12 @@ new #[Layout('layouts.app')] class extends Component {
         $this->reset('descripcion', 'observaciones', 'modelo', 'serie', 'cantidad', 'estado', 'marca_id', 'equipo_id');
 
         return $this->redirect('/componentes', navigate: true);
+    }
+
+    public function with(){
+        return [
+            'marcas' => Marca::all()
+        ];
     }
 
 }; ?>

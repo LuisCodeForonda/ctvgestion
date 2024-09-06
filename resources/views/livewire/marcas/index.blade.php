@@ -39,7 +39,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->showDelete = false;
     }
 
-    public function close()
+    public function closeModal()
     {
         $this->reset('marca');
         $this->show = false;

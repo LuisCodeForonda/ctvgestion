@@ -13,9 +13,9 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> 
     @livewireStyles
 </head>
 
@@ -90,8 +90,8 @@
                                         class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30 {{ request()->routeIs('equipo.index') ? 'text-white bg-slate-300/30' : '' }}">Equipos</span>
                                 </a>
                             </li>
-                           
-                            
+
+
                             <li class="border-l-2">
                                 <a href="{{ route('encargados.index') }}" wire:navigate class="cursor-pointer ">
                                     <span
@@ -109,18 +109,18 @@
                         </button>
                         <ul class="h-0 pl-10 show_menu">
                             <li class="border-l-2">
-                                <a href="/categoria" wire:navigate class="cursor-pointer ">
+                                <a href="{{ route('categorias.index') }}" wire:navigate class="cursor-pointer">
                                     <span
                                         class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Categorias</span>
                                 </a>
                             </li>
                             <li class="border-l-2">
-                                <a href="/noticia" wire:navigate class="cursor-pointer ">
+                                <a href="{{ route('noticias.index') }}" wire:navigate class="cursor-pointer ">
                                     <span
                                         class="block px-4 py-2 text-slate-400 hover:text-white hover:bg-slate-300/30">Post</span>
                                 </a>
                             </li>
-                        
+
                         </ul>
                     </li>
                 </ul>
@@ -128,11 +128,12 @@
             <div class="box-2 w-96 h-screen grow overflow-y-scroll relative">
                 <div class="bg-white sticky z-10 p-4 top-0 left-0 flex items-center justify-between border-b-2">
                     <div class="flex">
-                        <img src="{{ asset('icons/menu.svg') }}" alt="" class="block cursor-pointer toogle_menu">
+                        <img src="{{ asset('icons/menu.svg') }}" alt=""
+                            class="block cursor-pointer toogle_menu">
 
                         <h2 class="ml-4">{{ $header }}</h2>
                     </div>
-                    
+
                     <!-- Settings Dropdown -->
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
@@ -158,12 +159,17 @@
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
 
+
                                 <!-- Authentication -->
-                                <button wire:click="logout" class="w-full text-start">
-                                    <x-dropdown-link>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
-                                </button>
+                                </form>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -177,7 +183,7 @@
         </div>
     </div>
     <script src="{{ asset('js/script.js') }}"></script>
-    
+
     @livewireScripts
 </body>
 

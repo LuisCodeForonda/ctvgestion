@@ -10,4 +10,8 @@ class Mantenimiento extends Model
     use HasFactory;
 
     protected $fillable = ['tipo', 'descripcion', 'equipo_id', 'user_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

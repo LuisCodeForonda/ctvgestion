@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
@@ -41,7 +42,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->showDelete = false;
     }
 
-    public function close()
+    public function closeModal()
     {
         $this->reset('equipo');
         $this->show = false;
@@ -78,10 +79,6 @@ new #[Layout('layouts.app')] class extends Component {
         <h1 class="font-bold">Equipos</h1>
     @endslot
 
-    @foreach (config('constants.estados') as $key => $value)
-        <p>{{ $key }} - {{ $value }}</p>
-    @endforeach
-    
     @if ($data->isEmpty())
         <div class="text-center mt-8">
             <p class="mb-4 text-2xl">Aún no hay equipos</p>
@@ -106,16 +103,26 @@ new #[Layout('layouts.app')] class extends Component {
                         placeholder="Buscar..." />
                 </div>
             </div>
-            <div class="max-w-sm">
-                <select id="countries" wire:model.live="paginate"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected value="10">10 registros</option>
-                    <option value="25">25 registros</option>
-                    <option value="50">50 registros</option>
-                    <option value="100">100 registros</option>
-                </select>
+            <div class="flex gap-2">
+                <div class="max-w-sm">
+                    <select id="countries" wire:model.live="formato"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="pdf">pdf</option>
+                        <option value="excel">excel</option>
+                        <option value="csv">csv</option>
+                    </select>
+                </div>
+                <x-primary-button>Exportar</x-primary-button>
+                <div class="max-w-sm">
+                    <select id="countries" wire:model.live="paginate"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="10">10 registros</option>
+                        <option value="25">25 registros</option>
+                        <option value="50">50 registros</option>
+                        <option value="100">100 registros</option>
+                    </select>
+                </div>
             </div>
-
         </div>
 
         <div class="relative overflow-x-auto">
@@ -149,7 +156,7 @@ new #[Layout('layouts.app')] class extends Component {
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $item->descripcion }}
+                                {{ Str::limit($item->descripcion, 40) }}
                             </th>
                             <td class="px-6 py-4">
                                 {{ $item->modelo }}
@@ -157,16 +164,8 @@ new #[Layout('layouts.app')] class extends Component {
                             <td class="px-6 py-4">
                                 {{ $item->serie }}
                             </td>
-                            <td class="px-6 py-4">
-                                @if ($item->estado == 1)
-                                    Stand by
-                                @elseif($item->estado == 2)
-                                    Operativo
-                                @elseif($item->estado == 3)
-                                    Mantenimiento
-                                @elseif($item->estado == 4)
-                                    Malo
-                                @endif
+                            <td class="px-6 py-4 {{ 'text-'.config('constants.colores')[$item->estado].'-600' }}">
+                                {{ config('constants.estados')[$item->estado] }}
                             </td>
                             <td class="px-6 py-4 flex gap-4">
                                 <button wire:click="view({{ $item->id }})"
@@ -174,8 +173,8 @@ new #[Layout('layouts.app')] class extends Component {
                                     Show
                                 </button>
 
-                                <a href="{{ route('equipos.show', $item) }}" wire:navigate
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show</a>
+                                <a href="{{ route('equipos.show', $item->slug) }}" wire:navigate
+                                    class="font-medium text-gray-600 dark:text-gray-500 hover:underline">Info</a>
 
                                 <a href="{{ route('equipos.edit', $item) }}" wire:navigate
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
@@ -204,7 +203,7 @@ new #[Layout('layouts.app')] class extends Component {
                 <strong>Observaciones</strong>
                 <p>{{ $equipo->observaciones }}</p>
             @endif
-            @if ($equipo->modelo)
+            @if ($equipo->modelo !== "")
                 <strong>Modelo</strong>
                 <p>{{ $equipo->modelo }}</p>
             @endif

@@ -41,11 +41,21 @@ Route::get('encargados/pdf', [ComponenteController::class, 'pdf'])->middleware([
 Volt::route('/equipos', 'equipos.index')->middleware(['auth'])->name('equipos.index');
 Volt::route('/equipos/create', 'equipos.create')->middleware(['auth'])->name('equipos.create');
 Volt::route('/equipos/{equipo}/edit', 'equipos.edit')->middleware(['auth'])->name('equipos.edit');
-Volt::route('/equipos/{equipo}', 'equipos.show')->middleware(['auth'])->name('equipos.show');
+Volt::route('/equipos/{slug}', 'equipos.show')->middleware(['auth'])->name('equipos.show');
 Route::get('/equipos/pdf', [EquipoController::class, 'pdf'])->middleware(['auth'])->name('equipos.pdf');
 
-Route::get('/categoria', [CategoriaController::class, 'index'])->middleware(['auth'])->name('categoria.index');
-Route::get('/noticia', [NoticiaController::class, 'index'])->middleware(['auth'])->name('noticia.index');
+
+//rutas de las categorias
+Volt::route('/categorias', 'categorias.index')->middleware(['auth'])->name('categorias.index');
+Volt::route('/categorias/create', 'categorias.create')->middleware(['auth'])->name('categorias.create');
+Volt::route('/categorias/{categoria}/edit', 'categorias.edit')->middleware(['auth'])->name('categorias.edit');
+Volt::route('/categorias/{slug}', 'categorias.show')->middleware(['auth'])->name('categorias.show');
+
+//rutas de las noticias
+Volt::route('/noticias', 'noticias.index')->middleware(['auth'])->name('noticias.index');
+Volt::route('/noticias/create', 'noticias.create')->middleware(['auth'])->name('noticias.create');
+Volt::route('/noticias/{noticia}/edit', 'noticias.edit')->middleware(['auth'])->name('noticias.edit');
+Volt::route('/noticias/{slug}', 'noticias.show')->middleware(['auth'])->name('noticias.show');
 
 Route::get('/usuario', [UsuarioController::class, 'index'])->middleware(['auth'])->name('usuario.index');
 Route::get('/rol', [RolController::class, 'index'])->middleware(['auth'])->name('rol.index');

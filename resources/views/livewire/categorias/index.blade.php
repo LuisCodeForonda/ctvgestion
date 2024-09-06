@@ -1,11 +1,9 @@
 <?php
 
-use Livewire\Volt\Component;
 use Livewire\WithPagination;
+use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
-use App\Models\Componente;
-use App\Models\Marca;
-use Illuminate\Support\Str;
+use App\Models\Categoria;
 
 new #[Layout('layouts.app')] class extends Component {
     use WithPagination;
@@ -15,7 +13,7 @@ new #[Layout('layouts.app')] class extends Component {
     public $search = '';
     public $show = false;
     public $showDelete = false;
-    public $componente;
+    public $categoria;
 
     //ordenar
     public $sortBy = 'created_at';
@@ -24,26 +22,26 @@ new #[Layout('layouts.app')] class extends Component {
     //funciones
     public function view($id)
     {
-        $this->componente = Componente::findOrFail($id);
+        $this->categoria = Categoria::findOrFail($id);
         $this->show = true;
     }
 
     public function destroy($id)
     {
-        $this->componente = Componente::findOrFail($id);
+        $this->categoria = Categoria::findOrFail($id);
         $this->showDelete = true;
     }
 
     public function confirmDestroy()
     {
-        $this->componente->delete();
+        $this->categoria->delete();
         session()->flash('message', 'Eliminado Exitosamente.');
         $this->showDelete = false;
     }
 
     public function closeModal()
     {
-        $this->reset('componente');
+        $this->reset('marca');
         $this->show = false;
         $this->showDelete = false;
     }
@@ -66,7 +64,7 @@ new #[Layout('layouts.app')] class extends Component {
     public function with()
     {
         return [
-            'data' => Componente::where('descripcion', 'LIKE', '%' . $this->search . '%')
+            'data' => Categoria::where('nombre', 'LIKE', '%' . $this->search . '%')
                 ->orderBy($this->sortBy, $this->sortDir)
                 ->paginate($this->paginate),
         ];
@@ -75,10 +73,10 @@ new #[Layout('layouts.app')] class extends Component {
 
 <div>
     @slot('header')
-        <h1 class="font-bold">Componentes</h1>
+        <h1 class="font-bold">Categorias</h1>
     @endslot
 
-    <x-primary-button href="{{ route('componentes.create') }}" wire:navigate>Nuevo</x-primary-button>
+    <x-primary-button href="{{ route('categorias.create') }}" wire:navigate>Nuevo</x-primary-button>
 
     <div class="flex flex-row justify-between items-center py-2">
         <div class="flex items-center w-64 max-w-sm">
@@ -113,20 +111,16 @@ new #[Layout('layouts.app')] class extends Component {
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     @include('includes.table-sortable', [
-                        'name' => 'descripcion',
-                        'displayName' => 'Descripcion',
+                        'name' => 'nombre',
+                        'displayName' => 'Nombre',
                     ])
                     @include('includes.table-sortable', [
-                        'name' => 'modelo',
-                        'displayName' => 'Modelo',
+                        'name' => 'created_at',
+                        'displayName' => 'Fecha creacion',
                     ])
                     @include('includes.table-sortable', [
-                        'name' => 'serie',
-                        'displayName' => 'Serie',
-                    ])
-                    @include('includes.table-sortable', [
-                        'name' => 'Estado',
-                        'displayName' => 'Estado',
+                        'name' => 'updated_at',
+                        'displayName' => 'Fecha edicion',
                     ])
                     <th scope="col" class="px-6 py-3">
                         Acciones
@@ -138,24 +132,13 @@ new #[Layout('layouts.app')] class extends Component {
                     <tr wire:key="{{ $item->id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $item->descripcion }}
+                            {{ $item->nombre }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->modelo }}
+                            {{ $item->created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->serie }}
-                        </td>
-                        <td class="px-6 py-4">
-                            @if ($item->estado == 1)
-                                Stand by
-                            @elseif($item->estado == 2)
-                                Operativo
-                            @elseif($item->estado == 3)
-                                Mantenimiento
-                            @elseif($item->estado == 4)
-                                Malo
-                            @endif
+                            {{ $item->updated_at }}
                         </td>
                         <td class="px-6 py-4 flex gap-4">
                             <button wire:click="view({{ $item->id }})"
@@ -163,7 +146,7 @@ new #[Layout('layouts.app')] class extends Component {
                                 Show
                             </button>
 
-                            <a href="{{ route('componentes.edit', $item) }}" wire:navigate
+                            <a href="{{ route('marcas.edit', $item) }}" wire:navigate
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
 
                             <button wire:click="destroy({{ $item->id }})"
@@ -183,45 +166,18 @@ new #[Layout('layouts.app')] class extends Component {
 
     @if ($show)
         <x-modal-show title="Detalle del marca">
-            <strong>Descripcion</strong>
-            <p>{{ $componente->descripcion }}</p>
-            @if ($componente->observaciones !== '')
-                <strong>Observaciones</strong>
-                <p>{{ $componente->observaciones }}</p>
-            @endif
-            @if ($componente->modelo !== '')
-                <strong>Modelo</strong>
-                <p>{{ $componente->modelo }}</p>
-            @endif
-            @if ($componente->serie !== '')
-                <strong>Serie</strong>
-                <p>{{ $componente->serie }}</p>
-            @endif
-            @if (isset($componente->cantidad))
-                <strong>cantidad</strong>
-                <p>{{ $componente->cantidad }}</p>
-            @endif
-            @if ($componente->estado !== "")
-                <strong>estado</strong>
-                <p>
-                    @if ($componente->estado == 1)
-                        Stand by
-                    @elseif($componente->estado == 2)
-                        Operativo
-                    @elseif($componente->estado == 3)
-                        Mantenimiento
-                    @elseif($componente->estado == 4)
-                        Malo
-                    @endif
-                </p>
-            @endif
+            <strong>Nombre</strong>
+            <p>{{ $categorias->nombre }}</p>
+            <strong>Creado</strong>
+            <p>{{ $categorias->created_at }}</p>
+            <strong>Actulizado</strong>
+            <p>{{ $categorias->updated_at }}</p>
         </x-modal-show>
     @endif
 
     @if ($showDelete)
         <x-modal-destroy-confirm>
-            <p class="mb-4">{{ $componente->descripcion }}</p>
+            <p class="mb-4">{{ $categorias->nombre }}</p>
         </x-modal-destroy-confirm>
     @endif
-
 </div>

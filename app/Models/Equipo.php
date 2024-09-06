@@ -16,7 +16,7 @@ class Equipo extends Model
     }
 
     public function encargado(){
-        return $this->belongsTo(Persona::class, 'encargado_id');
+        return $this->belongsTo(Encargado::class, 'encargado_id');
     }
     
 }
